@@ -1271,11 +1271,14 @@ export function isValidPassword(password) {
 
 export function getSiteURL() {
     if (global.mm_config.SiteURL) {
-        console.log('got site url from config'); //eslint-disable-line no-console
         return global.mm_config.SiteURL;
     }
-    console.log('missing site url from config'); //eslint-disable-line no-console
-    return window.location.origin;
+
+    if (window.location.origin) {
+        return window.location.origin;
+    }
+
+    return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }
 
 export function handleFormattedTextClick(e) {
